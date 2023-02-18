@@ -149,7 +149,7 @@ def generate_plumed(pdbfile,CVs_interest,plumedfile,stride,outputfile):
     tr=md.load(pdbfile)
     top=tr.topology
     fid_plmd=open(plumedfile,'w')
-    output='PRINT AGR='
+    output='PRINT ARG='
     for key in list(CVs_interest.keys()):
         output=plumed_cases(tr,top,fid_plmd,key,CVs_interest[key],output)
     output=output[:-1]
