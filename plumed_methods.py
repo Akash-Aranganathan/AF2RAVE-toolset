@@ -1,5 +1,10 @@
 import numpy as np
-import mdtraj as md
+try:
+    import mdtraj as md
+    mdtraj_install=True
+except:
+    mdtraj_install=False
+    
 
 def get_value_plumed(file,arg):
     f=open(file,'r')
