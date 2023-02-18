@@ -1,9 +1,13 @@
 import numpy as np
 from sys import stdout
-from simtk.openmm.app import *
-from simtk.openmm import *
-from simtk.unit import *
-import pdbfixer
+try:
+    from simtk.openmm.app import *
+    from simtk.openmm import *
+    from simtk.unit import *
+    import pdbfixer
+    openmm_install=True
+except:
+    openmm_install=False
 
 def RegSpaceClustering(z, min_dist, max_centers=200, batch_size=100):
     '''Regular space clustering.
