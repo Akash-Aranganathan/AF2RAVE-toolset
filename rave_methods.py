@@ -83,25 +83,36 @@ def add_hydrogen(index,forcefield):
     PDBFile.writeFile(modeller.topology, modeller.positions, open(f'fixed_Hydrogen_{index}.pdb', 'w'))
     
 def generate_config(traj_data,initial_labels,dt = 0 ,d = 1,beta =1e-3,learning_rate = 1e-3,encoder_type = "Linear",batch_size = 512,neuron_num1 = 16,neuron_num2 = 16):
-    ftemp=open('config_temp.ini')
-    f=open('config.ini','w')
-    lines=ftemp.readlines()
     
-    lines.insert(1,f'batch_size =[{batch_size}]\n')
-    lines.insert(2,f'beta =[{beta}]\n')
-    lines.insert(3,f'learning_rate =[{learning_rate}]\n')
-    f.writelines(lines)
-    ftemp.close()
+    f=open('config.ini','w')
+
     f.write("\n[Model Parameters]\n")
     f.write(f"\ndt = [{dt}]\n")
     f.write(f"\nd = [{d}]\n")
     f.write(f"\nencoder_type = {encoder_type}\n")
     f.write(f"\nneuron_num1 = [{neuron_num1}]\n")
     f.write(f"\nneuron_num2 = [{neuron_num2}]\n")
+
+    f.write("\n[Training Parameters]\n")
+    
+    f.write(f'\nbatch_size ={batch_size}\n')
+    f.write(f'\nbeta =[{beta}]\n')
+    f.write(f'\nlearning_rate =[{learning_rate}]\n')
+    f.writelines(["\nthreshold = 0.01\n", \
+    "\npatience = 2\n", \
+    "\nrefinements = 8\n", \
+    "\nlr_scheduler_step_size = 5\n", \
+    "\nlr_scheduler_gamma = 0.9\n", \
+    "\nlog_interval = 10000\n"])
     
     f.write("\n[Data]\n")
-    f.write(f"\ntraj_data = {traj_data}\n")
-    f.write(f"\ninitial_labels = {initial_labels}\n")
+    f.write("\ntraj_data = [%s]\n"%",".join(traj_data))
+    f.write("\ninitial_labels = [%s]\n"%",".join(traj_data))
     f.write("\ntraj_weights \n")
+
+    f.writelines(["\n[Other Controls]\n", \
+    "\nseed = [0]\n", \
+    "\nUpdateLabel = True\n", \
+    "\nSaveTrajResults = True\n"])
     
     f.close()
