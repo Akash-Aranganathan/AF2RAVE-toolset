@@ -85,7 +85,7 @@ def add_hydrogen(index,forcefield):
 
 def plot_exp_var(pca,n_comp=10):
 
-  import matplotlib.pyplot as plot
+  import matplotlib.pyplot as plt
 
   fig = plt.figure(figsize=(5,3));
   plt.plot([-2,n_comp+2],[0.9,0.9],'--k',alpha=0.4)
@@ -166,7 +166,7 @@ def get_pca_labels(colvar_list,num_init_labels,dimensions):
 
   from sklearn.decomposition import PCA
 
-  colvars_all = np.concatenate(colvars_list)
+  colvars_all = np.concatenate(colvar_list)
 
   n_comp=10
   pca = PCA(n_components=n_comp).fit(colvars_all)  # fit the 2-dimensional data
@@ -174,7 +174,7 @@ def get_pca_labels(colvar_list,num_init_labels,dimensions):
 
   pca_projection = pca.transform(colvars_all)
 
-  labels = get_clusters(pca_projection[:,:dimensions],colvars_list,num_init_labels)
+  labels = get_clusters(pca_projection[:,:dimensions],colvar_list,num_init_labels)
 
   pca_output = [pca.transform(colvar_list[k]) for k in range(len(colvar_list))]
 
