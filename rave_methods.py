@@ -84,7 +84,9 @@ def add_hydrogen(index,forcefield):
     
 
 def plot_exp_var(pca,n_comp=10):
-  
+
+  import matplotlib.pyplot as plot
+
   fig = plt.figure(figsize=(5,3));
   plt.plot([-2,n_comp+2],[0.9,0.9],'--k',alpha=0.4)
   plt.plot([-2,n_comp+2],[1,1],'--k',alpha=0.4)
@@ -99,6 +101,8 @@ def plot_exp_var(pca,n_comp=10):
   plt.show()
 
 def plot_proj_labels(projections,proj_labels):
+
+  import matplotlib.pyplot as plt
 
   fig = plt.figure(figsize=(4,4));
   sca = plt.scatter(projections[::1,0],projections[::1,1],c=proj_labels[::1],marker='.',s=2);
