@@ -246,7 +246,7 @@ def generate_config(traj_data,initial_labels,dt = 0 ,d = 1,beta =1e-3,learning_r
     
     f.write("\n[Data]\n")
     f.write("\ntraj_data = [%s]\n"%",".join(traj_data))
-    f.write("\ninitial_labels = [%s]\n"%",".join(traj_data))
+    f.write("\ninitial_labels = [%s]\n"%",".join(initial_labels))
     f.write("\ntraj_weights \n")
 
     f.writelines(["\n[Other Controls]\n", \
